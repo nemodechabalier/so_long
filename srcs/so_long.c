@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 17:59:40 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/07/18 15:57:17 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/07/18 17:49:22 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	ft_printmap(char **map)
 		printf("%s\n", map[i]);
 		i++;
 	}
+	printf("\n\n\n");
 }
 
 int	main(int ac, char **av)
@@ -36,10 +37,12 @@ int	main(int ac, char **av)
 		return (ft_printf("error file map name"), -1);
 	so_long = (t_long *)malloc(sizeof(t_long));
 	take_map(av[1], so_long);
+	if (!so_long->map || !so_long->map[0])
+		return (ft_free_so_long(&so_long), -1);
 	if (correct_map(so_long) == 0)
 		ft_printf("need a corect map");
 	else
 		ft_printmap(so_long->map);
-	ft_free_map(so_long->map);
-	free(so_long);
+	ft_free_so_long(&so_long);
+	return(0);
 }

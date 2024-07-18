@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 18:01:56 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/07/18 15:30:28 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/07/18 18:48:55 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,13 @@ void	ft_free_map(char **map)
 	free(map);
 }
 
+void	ft_free_so_long(t_long **so_long)
+{
+	ft_free_map((*so_long)->map);
+	free(*so_long);
+	*so_long = NULL;
+}
+
 char	**ft_realoc_map(char **map, int *size)
 {
 	char	**new_map;
@@ -58,7 +65,7 @@ char	**ft_realoc_map(char **map, int *size)
 	return (new_map);
 }
 
-int	take_map(char *path, t_long *so_long)
+void	take_map(char *path, t_long *so_long)
 {
 	char	*line;
 	int		size;
@@ -68,11 +75,9 @@ int	take_map(char *path, t_long *so_long)
 	i = 0;
 	size = 8;
 	fd = open(path, O_RDONLY);
-	if (fd == -1)
-		return (0);
 	so_long->map = ft_calloc(sizeof(char *), size);
 	if (!so_long->map)
-		return (0);
+		return ;
 	line = get_next_line(fd);
 	while (line)
 	{
@@ -86,7 +91,6 @@ int	take_map(char *path, t_long *so_long)
 		i++;
 		line = get_next_line(fd);
 	}
-	return (1);
 }
 
 int	correct_wall(char **map)
@@ -115,6 +119,7 @@ int	correct_wall(char **map)
 	}
 	return (1);
 }
+
 int	unique_part(char **map, int collectible, int exit, int start)
 {
 	int	i;
@@ -139,10 +144,11 @@ int	unique_part(char **map, int collectible, int exit, int start)
 		}
 		i++;
 	}
-	if (collectible != 1 || exit != 1 || start != 1)
+	if (collectible <= 0 || exit != 1 || start != 1)
 		return (0);
 	return (1);
 }
+
 int	unique_letter(t_long *so_long)
 {
 	int	collectible;
@@ -178,52 +184,75 @@ void	flood(char **map, int i, int j, char c)
 	flood(map, i - 1, j, c);
 }
 
-void	find_unique_letter(char **map, int *tab)
+char	**creat_new_map(char **map)
+{
+	char	**new_map;
+	int		i;
+
+	i = 0;
+	while (map[i])
+		i++;
+	new_map = malloc(sizeof(char *) * (i + 1));
+	if (!new_map)
+		return (NULL);
+	i = 0;
+	while (map[i])
+	{
+		new_map[i] = ft_strdup(map[i]);
+		if (!new_map[i])
+			return (ft_free_map(new_map), NULL);
+		i++;
+	}
+	new_map[i] = NULL;
+	return (new_map);
+}
+
+int	verrif_new_map(char **map)
 {
 	int	i;
 	int	j;
 
+	ft_printmap(map);
 	i = 0;
 	while (map[i])
 	{
 		j = 0;
 		while (map[i][j])
 		{
-			if (map[i][j] == 'E')
+			if (ft_strchr("01T", map[i][j]) == NULL)
+				return (ft_free_map(map), 0);
+			j++;
+		}
+		i++;
+	}
+	return (ft_free_map(map), 1);
+}
+
+int	correct_cons_exit(char **map)
+{
+	int		i;
+	int		j;
+	char	**new_map;
+
+	new_map = creat_new_map(map);
+	if (!new_map)
+		return (0);
+	i = 0;
+	while (new_map[i])
+	{
+		j = 0;
+		while (new_map[i][j])
+		{
+			if (new_map[i][j] == 'P')
 			{
-				tab[0] = i;
-				tab[1] = j;
-			}
-			if (map[i][j] == 'P')
-			{
-				tab[2] = i;
-				tab[3] = j;
-			}
-			if (map[i][j] == 'C')
-			{
-				tab[4] = i;
-				tab[5] = j;
+				flood(new_map, i, j, 'T');
+				return (verrif_new_map(new_map));
 			}
 			j++;
 		}
 		i++;
 	}
-}
-int	correct_cons_exit(char **map)
-{
-	int	tab[6];
-
-	tab [0] = 0;
-	find_unique_letter(map, tab);
-	flood(map, tab[0], tab[1], 'T');
-	if (map[tab[0]][tab[1]] == 'E' || map[tab[2]][tab[3]] == 'P'
-		|| map[tab[4]][tab[5]] == 'C')
-		return (0);
-	flood(map, tab[0], tab[1], '0');
-	map[tab[0]][tab[1]] = 'E';
-	map[tab[0]][tab[1]] = 'P';
-	map[tab[0]][tab[1]] = 'E';
-	return (1);
+	return (0);
 }
 
 int	correct_map(t_long *so_long)
