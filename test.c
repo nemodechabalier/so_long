@@ -6,16 +6,15 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 16:04:17 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/07/18 16:06:04 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/07/19 14:42:36 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "srcs/so_long.h"
+#include "minilibx-linux/mlx.h"
 
 int	main(void)
 {
-	int fd;
+	void *mlx;
 
-	fd = open("test.ber", O_RDONLY);
-	printf("%s", get_next_line(fd)); 
+	mlx = mlx_init();
 }
