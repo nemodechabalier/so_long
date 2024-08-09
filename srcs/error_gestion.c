@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 18:01:56 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/07/18 19:30:31 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/08/09 19:27:48 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ static int	correct_wall(char **map)
 	return (1);
 }
 
-static int	unique_part(char **map, int collectible, int exit, int start)
+static int	unique_part(char **map, int *collectible, int exit, int start)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	collectible = 0;
+	*collectible = 0;
 	exit = 0;
 	start = 0;
 	while (map[i])
@@ -54,7 +54,7 @@ static int	unique_part(char **map, int collectible, int exit, int start)
 		while (map[i][j])
 		{
 			if (map[i][j] == 'C')
-				collectible++;
+				*collectible += 1;
 			if (map[i][j] == 'E')
 				exit++;
 			if (map[i][j] == 'P')
@@ -63,7 +63,7 @@ static int	unique_part(char **map, int collectible, int exit, int start)
 		}
 		i++;
 	}
-	if (collectible <= 0 || exit != 1 || start != 1)
+	if (*collectible <= 0 || exit != 1 || start != 1)
 		return (0);
 	return (1);
 }
@@ -81,7 +81,7 @@ static int	unique_letter(t_long *so_long)
 		exit = 0;
 		while (so_long->map[start][exit])
 		{
-			if (ft_strchr("01CEP", so_long->map[start][exit]) == NULL)
+			if (ft_strchr("01CEPS", so_long->map[start][exit]) == NULL)
 				return (0);
 			exit++;
 		}
@@ -89,23 +89,22 @@ static int	unique_letter(t_long *so_long)
 	}
 	start = 0;
 	exit = 0;
-	return (unique_part(so_long->map, collectible, exit, start));
+	return (unique_part(so_long->map, &so_long->collectible, exit, start));
 }
 
 int	correct_map(t_long *so_long)
 {
 	int		i;
-	size_t	size;
 
-	size = ft_strlen(so_long->map[0]);
+	so_long->width = ft_strlen(so_long->map[0]);
 	i = 1;
 	while (so_long->map[i])
 	{
-		if (strlen(so_long->map[i]) != size)
+		if ((int)strlen(so_long->map[i]) != so_long->width)
 			return (0);
 		i++;
 	}
 	if (correct_wall(so_long->map) == 0 || unique_letter(so_long) == 0)
 		return (0);
-	return (correct_road(so_long->map));
+	return (correct_road(so_long->map, &so_long->xp, &so_long->yp));
 }

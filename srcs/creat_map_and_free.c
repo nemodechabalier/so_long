@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 19:23:43 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/07/18 19:31:06 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/08/09 20:40:41 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,12 @@ void	ft_free_map(char **map)
 	free(map);
 }
 
-void	ft_free_so_long(t_long **so_long)
+void	ft_free_data(t_data **data)
 {
-	ft_free_map((*so_long)->map);
-	free(*so_long);
-	*so_long = NULL;
+	ft_free_map((*data)->so_long.map);
+	destroy_image(*data);
+	free(*data);
+	*data = NULL;
 }
 
 static char	**ft_realoc_map(char **map, int *size)
@@ -90,5 +91,6 @@ void	take_map(char *path, t_long *so_long)
 		free(line);
 		i++;
 		line = get_next_line(fd);
+		so_long->height = i;
 	}
 }

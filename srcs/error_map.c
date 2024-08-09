@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 19:22:50 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/07/18 19:32:07 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/08/09 19:27:10 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static char	**creat_new_map(char **map)
 
 static void	flood(char **map, int i, int j, char c)
 {
-	if (map[i][j] == '1' || map[i][j] == c)
+	if (map[i][j] == '1' || map[i][j] == c || map[i][j] == 'S')
 		return ;
 	map[i][j] = c;
 	flood(map, i + 1, j, c);
@@ -57,7 +57,7 @@ static int	verrif_new_map(char **map)
 		j = 0;
 		while (map[i][j])
 		{
-			if (ft_strchr("01T", map[i][j]) == NULL)
+			if (ft_strchr("01TS", map[i][j]) == NULL)
 				return (ft_free_map(map), 0);
 			j++;
 		}
@@ -66,7 +66,7 @@ static int	verrif_new_map(char **map)
 	return (ft_free_map(map), 1);
 }
 
-int	correct_road(char **map)
+int	correct_road(char **map, int *x, int *y)
 {
 	int		i;
 	int		j;
@@ -83,6 +83,8 @@ int	correct_road(char **map)
 		{
 			if (new_map[i][j] == 'P')
 			{
+				*x = j;
+				*y = i;
 				flood(new_map, i, j, 'T');
 				return (verrif_new_map(new_map));
 			}

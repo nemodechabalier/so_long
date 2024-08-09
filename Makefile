@@ -1,26 +1,58 @@
-NAME = Test
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/07/19 13:46:16 by nde-chab          #+#    #+#              #
+#    Updated: 2024/08/09 14:19:06 by nde-chab         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
+NAME = so_long
+LIBFT = libft_all/libft_printf_gnl.a
 CC = cc
+FLAGS = -Wall -Wextra -Werror -g3 -Imlx_linux
+MLX_FLAGS = -Lminilibx-linux -lmlx -L/usr/lib -lXext -lX11 -lm -lz
+INCLUDES = -I .
 
-SRC = test.c
+SRCS_DIR = srcs/
 
-OBJ = $(SRC:.c=.o)
+FUNC = creat_map_and_free.c error_map.c error_gestion.c so_long.c visual.c utils.c
 
-%.o: %.c
-	$(CC) -Wall -Wextra -Werror -I/usr/include -Iminilibx-linux -O3 -c $< -o $@
+SRCS = $(addprefix $(SRCS_DIR), $(FUNC))
 
-$(NAME): $(OBJ)
-	$(CC) $(OBJ) -Lminilibx-linux -lmlx -L/usr/lib -lXext -lX11 -lm -lz -o $(NAME)
+OBJS_DIR = obj/
+OBJS = $(addprefix $(OBJS_DIR), $(notdir $(SRCS:.c=.o)))
 
+# Rule to compile .c files to .o files
+$(OBJS_DIR)%.o: $(SRCS_DIR)%.c
+	$(MAKE) -C libft_all/
+	@mkdir -p $(OBJS_DIR)
+	$(CC) $(FLAGS) $(INCLUDES) -c $< -o $@
+
+
+
+
+# Rule to create the final executable
+$(NAME): $(OBJS) $(LIBFT)
+	$(CC) $(FLAGS) $(OBJS) $(LIBFT) $(MLX_FLAGS) -o $(NAME)
+	
+# Default target	
+all : $(NAME)
+
+# Clean object files
 clean:
-	rm -rf $(OBJ)
+	$(MAKE) -C libft_all/ clean
+	rm -rf $(OBJS_DIR)
 
+# Full clean
 fclean: clean
-	rm -f $(NAME)
+	$(MAKE) -C libft_all/ fclean
+	rm -f $(NAME) 
 
+# Recompile everything
 re: fclean all
 
-all: $(NAME)
-
 .PHONY: all clean fclean re
-
