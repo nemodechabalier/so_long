@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 17:59:40 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/08/09 20:09:51 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/01 21:08:34 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,22 +35,10 @@ t_data	*new_data(t_data **data)
 	(*data)->so_long.bool = 0;
 	(*data)->so_long.mouv = 0;
 	(*data)->so_long.mouvement = NULL;
-	(*data)->so_long.mouvement = str_count(0,(*data)->so_long.mouvement);
+	(*data)->so_long.mouvement = str_count(0, (*data)->so_long.mouvement);
 	(*data)->frame = 0;
+	(*data)->so_long.bool_ennemie = 0;
 	return (*data);
-}
-
-void	ft_printmap(char **map)
-{
-	int	i;
-
-	i = 0;
-	while (map[i])
-	{
-		printf("%s\n", map[i]);
-		i++;
-	}
-	printf("\n\n\n");
 }
 
 int	main(int ac, char **av)
@@ -72,11 +60,7 @@ int	main(int ac, char **av)
 	if (correct_map(&data->so_long) == 0)
 		ft_printf("need a corect map\n");
 	else
-	{
-		ft_printf("map ok c = %d :)\n\n\n", data->so_long.collectible);
-		ft_printmap(data->so_long.map);
 		ft_visual_part(data);
-	}
 	ft_free_data(&data);
 	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/19 13:46:16 by nde-chab          #+#    #+#              #
-#    Updated: 2024/08/09 14:19:06 by nde-chab         ###   ########.fr        #
+#    Updated: 2024/09/01 12:23:46 by nde-chab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ INCLUDES = -I .
 
 SRCS_DIR = srcs/
 
-FUNC = creat_map_and_free.c error_map.c error_gestion.c so_long.c visual.c utils.c
+FUNC = creat_map_and_free.c error_map.c error_gestion.c so_long.c visual.c utils.c mouv.c
 
 SRCS = $(addprefix $(SRCS_DIR), $(FUNC))
 
