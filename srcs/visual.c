@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:49:49 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/01 21:06:30 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/03 14:36:11 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	load_image(t_data *data)
 	if (!data->sprite.collectible || !data->sprite.enemie || !data->sprite.exit
 		|| !data->sprite.floor || !data->sprite.player || !data->sprite.wall1
 		|| !data->sprite.wall2 || !data->sprite.wall3 || !data->sprite.wall4)
-		return (ft_printf("error!\n"), close_window(data, 0));
+		return (close_window(data, 0));
 	return (0);
 }
 

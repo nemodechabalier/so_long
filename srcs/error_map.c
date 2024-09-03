@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 19:22:50 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/03 14:10:41 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/03 14:35:56 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static char	**place_ennemie_mouv(char **map)
 		}
 		i++;
 	}
-	ft_printmap(map);
 	return (map);
 }
 
