@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 17:59:40 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/03 14:26:26 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/03 15:21:40 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ int	main(int ac, char **av)
 	take_map(av[1], &data->so_long);
 	if (!data->so_long.map || !data->so_long.map[0])
 		return (ft_free_data(&data), -1);
-	if (correct_map(&data->so_long) == 0)
+	if (correct_map(&data->so_long) == 0 || data->so_long.height > 30
+		|| data->so_long.width > 60)
 		ft_printf("need a corect map\n");
 	else
 		ft_visual_part(data);
