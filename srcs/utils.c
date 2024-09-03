@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 14:16:20 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/01 21:10:41 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/03 14:26:50 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	close_window(t_data *data, int bool)
 		ft_printf("congratulations, you win !!\n");
 	else if (bool == 2)
 		ft_printf("Oh, no you lost !!\n");
-	else if(bool == 0)
+	else if (bool == 0)
 		ft_printf("Error\n");
 	exit(0);
 	return (0);

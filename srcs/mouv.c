@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:19:27 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/01 21:07:41 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/03 14:22:09 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ void	modif_map(int x, t_data *data)
 				{
 					data->so_long.map[i][j] = '0';
 					data->so_long.map[i][j + x] = 'S';
+					if (x == 1)
+						j++;
 				}
-				if (data->so_long.map[i][j + x] == 'P')
+				else if (data->so_long.map[i][j + x] == 'P')
 					close_window(data, 2);
-				if (data->so_long.bool_ennemie == 0)
-					j++;
 			}
 			j++;
 		}
@@ -70,9 +70,9 @@ void	mouvement_player(int x, int y, t_data *data)
 {
 	count_mouv(data);
 	if (data->so_long.map[data->so_long.yp + y][data->so_long.xp + x] == '1')
-		return ;
+		return (ennemie_mouv(data));
 	if (data->so_long.map[data->so_long.yp + y][data->so_long.xp + x] == 'S')
-		close_window(data,2);
+		close_window(data, 2);
 	if (data->so_long.map[data->so_long.yp + y][data->so_long.xp + x] == 'C')
 		data->so_long.collectible--;
 	if (data->so_long.bool == 1)
@@ -86,7 +86,7 @@ void	mouvement_player(int x, int y, t_data *data)
 	{
 		data->so_long.bool = 1;
 		if (data->so_long.collectible == 0)
-			close_window(data,1);
+			close_window(data, 1);
 	}
 	data->so_long.map[data->so_long.yp + y][data->so_long.xp + x] = 'P';
 	data->so_long.yp += y;
@@ -98,7 +98,7 @@ void	mouvement_player(int x, int y, t_data *data)
 int	handle_key(int keycode, t_data *data)
 {
 	if (keycode == 65307)
-		close_window(data,4);
+		close_window(data, 4);
 	if (keycode == 'w' || keycode == 'W')
 		mouvement_player(0, -1, data);
 	if (keycode == 'a' || keycode == 'A')

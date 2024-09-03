@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 17:59:44 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/01 21:06:00 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/03 14:27:02 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ int			error_file_map(char *map);
 int			correct_map(t_long *so_long);
 void		take_map(char *path, t_long *so_long);
 void		ft_free_data(t_data **data);
-void		ft_printmap(char **map);
 void		ft_free_map(char **map);
 int			correct_road(char **map, int *x, int *y);
 void		ft_visual_part(t_data *data);

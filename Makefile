@@ -6,7 +6,7 @@
 #    By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/19 13:46:16 by nde-chab          #+#    #+#              #
-#    Updated: 2024/09/01 12:23:46 by nde-chab         ###   ########.fr        #
+#    Updated: 2024/09/01 23:03:48 by nde-chab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ OBJS = $(addprefix $(OBJS_DIR), $(notdir $(SRCS:.c=.o)))
 # Rule to compile .c files to .o files
 $(OBJS_DIR)%.o: $(SRCS_DIR)%.c
 	$(MAKE) -C libft_all/
+	$(MAKE) -C minilibx-linux/
 	@mkdir -p $(OBJS_DIR)
 	$(CC) $(FLAGS) $(INCLUDES) -c $< -o $@
 
@@ -50,6 +51,7 @@ clean:
 # Full clean
 fclean: clean
 	$(MAKE) -C libft_all/ fclean
+	$(MAKE) -C minilibx-linux/ clean
 	rm -f $(NAME) 
 
 # Recompile everything

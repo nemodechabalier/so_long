@@ -6,11 +6,40 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 19:22:50 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/08/09 19:27:10 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/03 14:10:41 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+static char	**place_ennemie_mouv(char **map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == 'S')
+			{
+				if (map[i][j + 1] == '0')
+				{
+					map[i][j + 1] = 'S';
+					j++;
+				}
+				else if (map[i][j - 1] == '0')
+					map[i][j - 1] = 'S';
+			}
+			j++;
+		}
+		i++;
+	}
+	ft_printmap(map);
+	return (map);
+}
 
 static char	**creat_new_map(char **map)
 {
@@ -32,7 +61,7 @@ static char	**creat_new_map(char **map)
 		i++;
 	}
 	new_map[i] = NULL;
-	return (new_map);
+	return (place_ennemie_mouv(new_map));
 }
 
 static void	flood(char **map, int i, int j, char c)
