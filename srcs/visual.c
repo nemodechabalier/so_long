@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:49:49 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/03 14:36:11 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/04 11:37:16 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,15 +89,16 @@ int	animate_wall(t_data *data)
 		data->frame = 0;
 		data->sprite.wall = data->sprite.wall1;
 	}
-	else if (data->frame % 2000 == 0)
+	else if (data->frame % 200000 == 0)
 		data->sprite.wall = data->sprite.wall1;
-	else if (data->frame % 1000 == 0)
+	else if (data->frame % 100000 == 0)
 		data->sprite.wall = data->sprite.wall4;
-	else if (data->frame % 500 == 0)
+	else if (data->frame % 50000 == 0)
 		data->sprite.wall = data->sprite.wall3;
-	else if (data->frame % 250 == 0)
+	else if (data->frame % 25000 == 0)
 		data->sprite.wall = data->sprite.wall2;
-	draw_map(data);
+	if (data->frame % 25000 == 0)
+		draw_map(data);
 	return (0);
 }
 

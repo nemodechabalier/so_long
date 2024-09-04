@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 19:23:43 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/01 21:45:08 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/04 12:35:10 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	error_file_map(char *map)
 	int	i;
 
 	i = ft_strlen(map);
-	if (i < 4)
+	if (i < 5)
 		return (-1);
 	return (ft_strncmp(map + i - 4, ".ber", 4));
 }
@@ -77,7 +77,7 @@ void	take_map(char *path, t_long *so_long)
 	size = 8;
 	fd = open(path, O_RDONLY);
 	so_long->map = ft_calloc(sizeof(char *), size);
-	if (!so_long->map)
+	if (!so_long->map || fd < 0)
 		return ;
 	line = get_next_line(fd);
 	while (line)
